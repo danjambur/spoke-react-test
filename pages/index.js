@@ -5,7 +5,6 @@ import ProductList, { TEST_QUERY } from "../components/ProductList";
 export default function Home() {
   return (
     <>
-      <p>Hello!</p>
       <ProductList />
     </>
   );

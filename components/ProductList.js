@@ -2,8 +2,19 @@ import { gql, useQuery, NetworkStatus } from "@apollo/client";
 
 export const TEST_QUERY = gql`
   {
-    shop {
-      name
+    products(first: 50) {
+      edges {
+        node {
+          title
+          images(first: 1) {
+            edges {
+              node {
+                transformedSrc
+              }
+            }
+          }
+        }
+      }
     }
   }
 `;
