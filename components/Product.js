@@ -1,4 +1,4 @@
-export default function (props) {
+export default function Product({ product }) {
   return (
     <div className="product">
       <div>

@@ -1,4 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
+import Product from "./Product";
 
 export const TEST_QUERY = gql`
   {
@@ -42,7 +43,19 @@ export default function ProductList() {
     return <p>Loading...</p>;
   }
 
-  const products = data;
-
-  return <div>here!</div>;
+  const productNodes = data.products.edges;
+  console.log({ productNodes });
+  return (
+    <div>
+      {productNodes.map((item) => {
+        const product = item.node;
+        console.log(product);
+        return (
+          <div key={product.id}>
+            <p>{product.title}</p>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
