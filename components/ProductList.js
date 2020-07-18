@@ -1,4 +1,4 @@
-import { gql, useQuery, NetworkStatus } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 
 export const TEST_QUERY = gql`
   {
@@ -32,9 +32,7 @@ export const TEST_QUERY = gql`
 `;
 
 export default function ProductList() {
-  const { loading, error, data, networkStatus } = useQuery(TEST_QUERY, {
-    notifyOnNetworkStatusChange: true,
-  });
+  const { loading, error, data } = useQuery(TEST_QUERY);
 
   if (error) {
     return <p>uh oh! we can't get the products.</p>;
@@ -45,7 +43,6 @@ export default function ProductList() {
   }
 
   const products = data;
-  console.log({ products });
 
   return <div>here!</div>;
 }

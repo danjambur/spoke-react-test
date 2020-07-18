@@ -4,9 +4,9 @@ import ProductList, { TEST_QUERY } from "../components/ProductList";
 
 export default function Home() {
   return (
-    <>
+    <div className="container">
       <ProductList />
-    </>
+    </div>
   );
 }
 export async function getStaticProps() {
