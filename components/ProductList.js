@@ -2,10 +2,13 @@ import { gql, useQuery, NetworkStatus } from "@apollo/client";
 
 export const TEST_QUERY = gql`
   {
-    products(first: 50) {
+    products(
+      first: 50
+      query: "product_type:HEROES OR product_type:SHARPS OR product_type:POLO"
+    ) {
       edges {
         node {
-          title
+          id
           images(first: 1) {
             edges {
               node {
@@ -13,6 +16,15 @@ export const TEST_QUERY = gql`
               }
             }
           }
+          productType
+          title
+          tags
+          priceRange {
+            maxVariantPrice {
+              amount
+            }
+          }
+          updatedAt
         }
       }
     }
