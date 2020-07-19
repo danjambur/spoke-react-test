@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import Product from "./Product";
 
-export const TEST_QUERY = gql`
+export const GET_PRODUCTS = gql`
   {
     products(
       first: 50
@@ -33,7 +33,7 @@ export const TEST_QUERY = gql`
 `;
 
 export default function ProductList() {
-  const { loading, error, data } = useQuery(TEST_QUERY);
+  const { loading, error, data } = useQuery(GET_PRODUCTS);
 
   if (error) {
     return <p>uh oh! we can't get the products.</p>;
@@ -49,12 +49,7 @@ export default function ProductList() {
     <div>
       {productNodes.map((item) => {
         const product = item.node;
-        console.log(product);
-        return (
-          <div key={product.id}>
-            <p>{product.title}</p>
-          </div>
-        );
+        return <Product product={product} />;
       })}
     </div>
   );

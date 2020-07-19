@@ -1,14 +1,16 @@
 export default function Product({ product }) {
+  const hasImage = product.images.edges.length > 0;
+  const imageSrc = hasImage ?? product.images.edges[0].transformedSrc;
+  const isNew = true;
+
   return (
     <div className="product">
-      <div>
-        <img src={props.img || null} />
-      </div>
-      <div>{isNew && <div>NEW</div>}</div>
-      <h4>category Goes here</h4>
-      <h2>Title goes here</h2>
+      {hasImage && <img src={imageSrc} />}
+      {<div>{isNew && <div>NEW</div>}</div>}
+      <h4>{product.productType}</h4>
+      <h2>{product.title}</h2>
       <p>description goes here</p>
-      <Button>add to basket</Button>
+      <button>add to basket</button>
     </div>
   );
 }
