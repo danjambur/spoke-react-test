@@ -44,12 +44,11 @@ export default function ProductList() {
   }
 
   const productNodes = data.products.edges;
-  console.log({ productNodes });
   return (
     <div>
       {productNodes.map((item) => {
         const product = item.node;
-        return <Product product={product} />;
+        return <Product product={product} key={product.id} id={product.id} />;
       })}
     </div>
   );

@@ -1,11 +1,11 @@
 import Link from "next/link";
 export default function Nav() {
   return (
-    <nav>
-      <Link to="/">
-        <a>ALL</a>
+    <nav className="nav">
+      <Link href="/">
+        <a href="#">ALL</a>
       </Link>
-      <Link to="/cart">
+      <Link href="/cart">
         <a>CART </a>
       </Link>
     </nav>

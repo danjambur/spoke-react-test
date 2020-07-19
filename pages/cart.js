@@ -1,5 +1,4 @@
 import Router from "next/router";
-import Link from "next/link";
 
 function goBack() {
   return Router.back();
@@ -8,7 +7,10 @@ function goBack() {
 export default function Cart() {
   return (
     <section className="container">
-      <a onClick={goBack}>BACK</a>
+      <a onClick={goBack} href="#">
+        BACK
+      </a>
+      <h1>MY CART</h1>
     </section>
   );
 }
