@@ -37,6 +37,7 @@ export default function Product({ product, id }) {
     });
 
     product = data.node;
+    console.log({product});
     if(loading) {
       return <p>Loading product...</p>
     }
