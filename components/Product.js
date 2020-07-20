@@ -1,30 +1,57 @@
 import { gql, useQuery } from "@apollo/client";
-
+import { useRouter } from 'next/router'
 export const GET_PRODUCT = gql`
-  {
-    product(id: $id) {
+query getProduct($id: ID!) {
+  node(id: $id) {
+     ...on Product {
       title
-      description
-      onlineStoreUrl
+      id
+      images(first: 1) {
+        edges {
+          node {
+            transformedSrc
+          }
+        }
+      }
+      productType
+      title
+      tags
+      priceRange {
+        maxVariantPrice {
+          amount
+        }
+      }
     }
   }
+}
 `;
 
 export default function Product({ product, id }) {
-  console.log(id);
-  const { loading, error, data } = useQuery(GET_PRODUCT, {
-    variables: { id: "" },
-  });
+  const router = useRouter()
+  
+  // if a product object has not been passed, it means we are on the product page
+  // i need to get the product data from the graphql endpoint by its ID
+  if (!product) {
+    const { loading, error, data } = useQuery(GET_PRODUCT, {
+      variables: { id },
+    });
 
-  console.log({ data });
+    product = data.node;
+    if(loading) {
+      return <p>Loading product...</p>
+    }
+  
+    if(error) {
+      return <p>Error! {error}</p>
+    }
+  }
 
-  if (!product) return null;
-
-  const price = product.priceRange.maxVariantPrice.amount;
+  
+  const price = parseInt(product.priceRange.maxVariantPrice.amount).toFixed(2);
   const hasImage = product.images.edges.length > 0;
   const lastUpdated = new Date(product.updatedAt);
   let threeDaysAgo = new Date();
-  threeDaysAgo.setDate(threeDaysAgo.getDate() - 14);
+  threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
 
   // set the URL for the image
   const imageSrc = hasImage
@@ -33,24 +60,29 @@ export default function Product({ product, id }) {
 
   // if its been updated in the last 3 days, i guess its new!
   let isNew = false;
-  if (lastUpdated < threeDaysAgo) {
+  if (threeDaysAgo > lastUpdated) {
     isNew = true;
   }
 
   function goToProduct() {
-    console.log("hello");
+    router.push(`/products/${id}` )
   }
 
   return (
     <div className="product" onClick={goToProduct}>
-      {hasImage && <img className="product__image" src={imageSrc} />}
-      <div className="product__desc">
-        {<div>{isNew && <div>NEW</div>}</div>}
+      {hasImage ? 
+        <img className="product-image" src={imageSrc} /> 
+      : <img className="product-image" src="/no-img.svg" />
+      }
+      <div className="product-desc">
+        {<div>{isNew && <div className="highlight">NEW</div>}</div>}
         <h4>{product.productType}</h4>
         <h2>
-          {product.title} - £{price}
+          {product.title}
         </h2>
-        <p>description goes here</p>
+        <h3>
+          £{price}
+        </h3>
       </div>
     </div>
   );

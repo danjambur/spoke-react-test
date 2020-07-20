@@ -7,7 +7,7 @@ function goBack() {
 export default function Cart() {
   return (
     <section className="container">
-      <a onClick={goBack} href="#">
+      <a className="nav-link nav-link__pdb" onClick={goBack} href="#">
         BACK
       </a>
       <h1>MY CART</h1>
