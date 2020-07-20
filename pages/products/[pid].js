@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Product, { GET_PRODUCT } from "../../components/Product";
-import Nav from "../../components/Nav"
+import Nav from "../../components/Nav";
 import { initializeApollo } from "../../lib/apolloClient";
 
 export default function ProductPage(props) {
@@ -9,13 +9,13 @@ export default function ProductPage(props) {
 
   return (
     <div className="container">
-      <Nav isProductPage/>
-      <Product id={pid} />
+      <Nav isProductPage />
+      <Product id={pid} withButton {...props} />
     </div>
   );
 }
 
-export async function getServerSideProps (props) {
+export async function getServerSideProps(props) {
   // We need to initialise this serverside
   // Otherwise it won't resolve to process.env.API
   const pid = props.query.pid;
@@ -25,10 +25,11 @@ export async function getServerSideProps (props) {
     query: GET_PRODUCT,
     variables: { id: pid },
   });
-  
+
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),
+      baseURL: process.env.BASE_URL,
     },
   };
 }
