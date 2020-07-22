@@ -65,7 +65,7 @@ export default function Product({
 
   // if its been updated in the last 3 days, i guess its new!
   let isNew = false;
-  if (threeDaysAgo > lastUpdated) {
+  if (lastUpdated > threeDaysAgo) {
     isNew = true;
   }
 
@@ -74,8 +74,10 @@ export default function Product({
   }
 
   async function addToCart(e, product) {
+    // because the button has a click event,
+    // and its nested inside of another,
+    // we don't want the event to bubble!
     e.stopPropagation();
-
     let response = await fetch(`${baseURL}/api/cart`, {
       method: "POST",
       body: JSON.stringify(product),

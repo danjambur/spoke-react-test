@@ -34,6 +34,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .product {
+    text-align: left;
     display: flex;
     padding-top: 10vh;
     padding-bottom: 10vh;
@@ -64,15 +65,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cart {
+    &-text-left {
+        text-align: left;
+    }
+    font-weight: bold;
     width: 100%;
     &-item {
-        display: flex;
-        flex-basis: 25%;
-        flex-direction: row;
+        text-align: center;
     }
-    &-row {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
+    &-remove {
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-decoration: underline;
+        color: black;
     }
 }

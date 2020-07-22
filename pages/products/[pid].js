@@ -6,7 +6,6 @@ import { initializeApollo } from "../../lib/apolloClient";
 export default function ProductPage(props) {
   const router = useRouter();
   const { pid } = router.query;
-
   return (
     <div className="container">
       <Nav isProductPage />
