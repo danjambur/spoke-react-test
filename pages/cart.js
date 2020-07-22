@@ -25,7 +25,6 @@ export default function Cart({ baseURL }) {
       body: id,
     }).then((response) => {
       return response.json().then((cart) => {
-        console.log({ cart });
         setCart(cart);
       });
     });
@@ -49,9 +48,6 @@ export default function Cart({ baseURL }) {
                 <h3>Cart items</h3>
               </th>
               <th>
-                <h3>Quantity</h3>
-              </th>
-              <th>
                 <h3>Price</h3>
               </th>
               <th>
@@ -64,9 +60,6 @@ export default function Cart({ baseURL }) {
                 <tr key={`${product.id}${index}`} className="cart-item">
                   <td>
                     <Product product={product} id={product.id} hidePrice />
-                  </td>
-                  <td>
-                    <p>{product.qty}</p>
                   </td>
                   <td>
                     £

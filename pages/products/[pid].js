@@ -9,7 +9,7 @@ export default function ProductPage(props) {
   return (
     <div className="container">
       <Nav isProductPage />
-      <Product id={pid} withButton {...props} />
+      <Product id={pid} withOptions {...props} />
     </div>
   );
 }

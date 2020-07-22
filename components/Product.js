@@ -29,7 +29,7 @@ export const GET_PRODUCT = gql`
 export default function Product({
   product,
   id,
-  withButton,
+  withOptions,
   baseURL,
   hidePrice,
 }) {
@@ -65,7 +65,7 @@ export default function Product({
 
   // if its been updated in the last 3 days, i guess its new!
   let isNew = false;
-  if (lastUpdated > threeDaysAgo) {
+  if (lastUpdated < threeDaysAgo) {
     isNew = true;
   }
 
@@ -96,8 +96,9 @@ export default function Product({
         {<div>{isNew && <div className="highlight">NEW</div>}</div>}
         <h4>{product.productType}</h4>
         <h2>{product.title}</h2>
+
         {!hidePrice && <h3>£{price}</h3>}
-        {withButton && (
+        {withOptions && (
           <button
             className="highlight hightlight-btn"
             onClick={(e) => {
