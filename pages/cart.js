@@ -14,7 +14,11 @@ export default function Cart({ baseURL }) {
   useEffect(() => {
     const getCart = async () => {
       const result = await fetch(`${baseURL}/api/cart`);
-      result.json().then((cart) => setCart(cart));
+      result.json().then((cart) => {
+        console.log({cart});
+        setCart(cart)
+      });
+
     };
     getCart();
   }, []);
@@ -28,6 +32,14 @@ export default function Cart({ baseURL }) {
         setCart(cart);
       });
     });
+  }
+
+  function cartTotal () {
+    cart.reduce((sum, obj) => {
+      console.log({obj})
+      obj.qty + obj.subTotal
+    }, 0);
+    return cart.reduce((sum, obj) => sum + obj.subTotal, 0);
   }
 
   return (
@@ -51,11 +63,14 @@ export default function Cart({ baseURL }) {
                 <h3>Price</h3>
               </th>
               <th>
+                <h3>Quantity</h3>
+              </th>
+              <th>
                 <h3>Remove</h3>
               </th>
             </tr>
             {cart.map((cartItem, index) => {
-              let product = JSON.parse(cartItem);
+              let product = cartItem
               return (
                 <tr key={`${product.id}${index}`} className="cart-item">
                   <td>
@@ -67,7 +82,9 @@ export default function Cart({ baseURL }) {
                       product.priceRange.maxVariantPrice.amount
                     ).toFixed(2)}
                   </td>
-
+                  <td>
+                    {product.qty}
+                  </td>
                   <td>
                     <p
                       className="cart-remove"
@@ -80,6 +97,9 @@ export default function Cart({ baseURL }) {
               );
             })}
           </tbody>
+          <tfoot className="cart-total">
+              <tr>TOTAL: £{parseInt(cartTotal()).toFixed(2)}</tr>
+            </tfoot>
         </table>
       )}
     </section>

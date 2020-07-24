@@ -15,8 +15,6 @@ export default function ProductPage(props) {
 }
 
 export async function getServerSideProps(props) {
-  // We need to initialise this serverside
-  // Otherwise it won't resolve to process.env.API
   const pid = props.query.pid;
   const apolloClient = initializeApollo();
 
@@ -25,6 +23,8 @@ export async function getServerSideProps(props) {
     variables: { id: pid },
   });
 
+  // We need to initialise this serverside
+  // Otherwise it won't resolve to process.env.API
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),

@@ -100,7 +100,7 @@ export default function Product({
         {!hidePrice && <h3>£{price}</h3>}
         {withOptions && (
           <button
-            className="highlight hightlight-btn"
+            className="highlight highlight-btn"
             onClick={(e) => {
               addToCart(e, product);
             }}
