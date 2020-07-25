@@ -6,7 +6,7 @@ export const GET_PRODUCT = gql`
       ... on Product {
         title
         id
-        images(first: 1) {
+        images(first: 2) {
           edges {
             node {
               transformedSrc
@@ -32,12 +32,13 @@ export default function Product({
   withOptions,
   baseURL,
   hidePrice,
+  isProductPage,
 }) {
   const router = useRouter();
 
   // if a product object has not been passed, it means we are on the product page
   // i need to get the product data from the graphql endpoint by its ID
-  if (!product) {
+  if (isProductPage) {
     const { loading, error, data } = useQuery(GET_PRODUCT, {
       variables: { id },
     });
@@ -55,15 +56,26 @@ export default function Product({
   const price = parseInt(
     product.priceRange.maxVariantPrice.amount,
   ).toFixed(2);
-  const hasImage = product.images.edges.length > 0;
+
+  const hasImages = product.images.edges.length > 0;
   const lastUpdated = new Date(product.updatedAt);
   let threeDaysAgo = new Date();
   threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
 
   // set the URL for the image
-  const imageSrc = hasImage
-    ? product.images.edges[0].node.transformedSrc
-    : null;
+  let imageSrc;
+  if (hasImages) {
+    console.log(product.images);
+  }
+  if (!isProductPage) {
+    imageSrc = hasImages
+      ? product.images.edges[0].node.transformedSrc
+      : null;
+  } else {
+    imageSrc = hasImages
+      ? product.images.edges[1].node.transformedSrc // get the second image as per the requirements
+      : null;
+  }
 
   // if its been updated in the last 3 days, i guess its new!
   let isNew = false;
@@ -88,7 +100,7 @@ export default function Product({
 
   return (
     <div className="product" onClick={goToProduct}>
-      {hasImage ? (
+      {hasImages ? (
         <img className="product-image" src={imageSrc} />
       ) : (
         <img className="product-image" src="/no-img.svg" />
