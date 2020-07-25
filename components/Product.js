@@ -49,7 +49,6 @@ export default function Product({
     if (error) {
       return <p>Error! {error}</p>;
     }
-
     product = data.node;
   }
 
