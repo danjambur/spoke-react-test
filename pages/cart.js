@@ -15,10 +15,9 @@ export default function Cart({ baseURL }) {
     const getCart = async () => {
       const result = await fetch(`${baseURL}/api/cart`);
       result.json().then((cart) => {
-        console.log({cart});
-        setCart(cart)
+        console.log({ cart });
+        setCart(cart);
       });
-
     };
     getCart();
   }, []);
@@ -34,10 +33,10 @@ export default function Cart({ baseURL }) {
     });
   }
 
-  function cartTotal () {
+  function cartTotal() {
     cart.reduce((sum, obj) => {
-      console.log({obj})
-      obj.qty + obj.subTotal
+      console.log({ obj });
+      obj.qty + obj.subTotal;
     }, 0);
     return cart.reduce((sum, obj) => sum + obj.subTotal, 0);
   }
@@ -47,16 +46,22 @@ export default function Cart({ baseURL }) {
       <Head>
         <title>Your Cart</title>
       </Head>
-      <a className="nav-link nav-link__pdb" onClick={goBack} href="#">
-        BACK
-      </a>
-      <h1>MY CART</h1>
+      <nav className="nav">
+        <a
+          className="nav-link nav-link__pdb"
+          onClick={goBack}
+          href="#"
+        >
+          BACK
+        </a>
+        <h1>MY CART</h1>
+      </nav>
       {!cart.length && <p>your cart is empty.</p>}
       {cart.length > 0 && (
         <table className="cart">
           <tbody>
             <tr className="cart-row">
-              <th className="cart-text-left">
+              <th className="cart-text__left">
                 <h3>Cart items</h3>
               </th>
               <th>
@@ -70,21 +75,26 @@ export default function Cart({ baseURL }) {
               </th>
             </tr>
             {cart.map((cartItem, index) => {
-              let product = cartItem
+              let product = cartItem;
               return (
-                <tr key={`${product.id}${index}`} className="cart-item">
+                <tr
+                  key={`${product.id}${index}`}
+                  className="cart-item"
+                >
                   <td>
-                    <Product product={product} id={product.id} hidePrice />
+                    <Product
+                      product={product}
+                      id={product.id}
+                      hidePrice
+                    />
                   </td>
                   <td>
                     £
                     {parseInt(
-                      product.priceRange.maxVariantPrice.amount
+                      product.priceRange.maxVariantPrice.amount,
                     ).toFixed(2)}
                   </td>
-                  <td>
-                    {product.qty}
-                  </td>
+                  <td>{product.qty}</td>
                   <td>
                     <p
                       className="cart-remove"
@@ -96,10 +106,10 @@ export default function Cart({ baseURL }) {
                 </tr>
               );
             })}
+            <tr className="cart-text__right">
+              <td>TOTAL: £{parseInt(cartTotal()).toFixed(2)}</td>
+            </tr>
           </tbody>
-          <tfoot className="cart-total">
-              <tr>TOTAL: £{parseInt(cartTotal()).toFixed(2)}</tr>
-            </tfoot>
         </table>
       )}
     </section>

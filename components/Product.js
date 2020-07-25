@@ -42,7 +42,6 @@ export default function Product({
       variables: { id },
     });
 
-    product = data.node;
     if (loading) {
       return <p>Loading product...</p>;
     }
@@ -50,9 +49,13 @@ export default function Product({
     if (error) {
       return <p>Error! {error}</p>;
     }
+
+    product = data.node;
   }
 
-  const price = parseInt(product.priceRange.maxVariantPrice.amount).toFixed(2);
+  const price = parseInt(
+    product.priceRange.maxVariantPrice.amount,
+  ).toFixed(2);
   const hasImage = product.images.edges.length > 0;
   const lastUpdated = new Date(product.updatedAt);
   let threeDaysAgo = new Date();
@@ -78,11 +81,10 @@ export default function Product({
     // and its nested inside of another,
     // we don't want the event to bubble!
     e.stopPropagation();
-    let response = await fetch(`${baseURL}/api/cart`, {
+    await fetch(`${baseURL}/api/cart`, {
       method: "POST",
       body: JSON.stringify(product),
     });
-    let result = await response.json();
   }
 
   return (

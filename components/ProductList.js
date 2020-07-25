@@ -48,7 +48,13 @@ export default function ProductList() {
     <div>
       {productNodes.map((item) => {
         const product = item.node;
-        return <Product product={product} id={product.id} key={product.id} />;
+        return (
+          <Product
+            product={product}
+            id={product.id}
+            key={product.id}
+          />
+        );
       })}
     </div>
   );
