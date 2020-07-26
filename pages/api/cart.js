@@ -3,16 +3,21 @@
 import cart from "./cart.json";
 
 export default (req, res) => {
-  //Each time we run this function
-  //We need to reduce the cart and quantify the objects
-  //So what we don't have duplicates
-  //In the API response
-
   function getSubtotal(obj) {
     return (obj.subTotal =
       parseInt(obj.qty, 10) *
       parseInt(obj.priceRange.maxVariantPrice.amount, 10));
   }
+
+  // there is (unfortunately) a bug that i cannot solve right now;
+  // where - on first POST, the cart data is updated - and reduced.
+  // but on the first GET, the cart - remains empty - i believe this is due to the cart being statically generated
+  // as, accessing the cart page before adding products - does not result in this bug.
+
+  //Each time we run this function
+  //We need to reduce the cart and quantify the objects
+  //So what we don't have duplicates
+  //In the API response
 
   let quantifiedCart = cart.reduce((ar, obj) => {
     let exists = false;
@@ -47,7 +52,7 @@ export default (req, res) => {
   } else if (req.method === "POST") {
     let product = JSON.parse(req.body);
     cart.push(product);
-    return res.status(200).json(cart);
+    return res.status(200).json(quantifiedCart);
   } else if (req.method === "DELETE") {
     // we remove the item from each cart array
     // so we maintain an accurate view of the quantifiedCart

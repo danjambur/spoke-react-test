@@ -27,6 +27,7 @@
     "@babel/preset-react": "^7.10.4",
     "babel-jest": "^26.1.0",
     "jest": "^26.1.0",
-    "react-test-renderer": "^16.13.1"
+    "react-test-renderer": "^16.13.1",
+    "waait": "^1.0.5"
   }
 }

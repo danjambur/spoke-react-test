@@ -14,7 +14,6 @@ export const GET_PRODUCT = gql`
           }
         }
         productType
-        title
         tags
         priceRange {
           maxVariantPrice {
@@ -37,7 +36,7 @@ export default function Product({
   const router = useRouter();
 
   // if a product object has not been passed, it means we are on the product page
-  // i need to get the product data from the graphql endpoint by its ID
+  // so we set isProductPage and we need to get the product data from the graphql endpoint by its ID
   if (isProductPage) {
     const { loading, error, data } = useQuery(GET_PRODUCT, {
       variables: { id },
@@ -65,7 +64,6 @@ export default function Product({
   // set the URL for the image
   let imageSrc;
   if (hasImages) {
-    console.log(product.images);
   }
   if (!isProductPage) {
     imageSrc = hasImages
@@ -73,7 +71,7 @@ export default function Product({
       : null;
   } else {
     imageSrc = hasImages
-      ? product.images.edges[1].node.transformedSrc // get the second image as per the requirements
+      ? product.images.edges[1].node.transformedSrc // get the second image as per the requirements on the product page
       : null;
   }
 

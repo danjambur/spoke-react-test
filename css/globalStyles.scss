@@ -1,113 +1,117 @@
 $tablet: 720px;
 
 body {
-    background-color: #f7f7f7;
-    font-family: Arial, Helvetica, Sans-Serif;
-    font-weight: bold;
+	background-color: #f7f7f7;
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-weight: bold;
 }
 
-
-h1, h2, h3, h4, h5, h6 {
-    margin-top: 0;
-    text-transform: uppercase;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-top: 0;
+	text-transform: uppercase;
 }
 
 h1 {
-    @media only screen and (min-width: $tablet) {
-        font-size: 44pt;
-    }
+	@media only screen and (min-width: $tablet) {
+		font-size: 44pt;
+	}
 }
 
 h3 {
-    font-size: 14pt;
-    @media only screen and (min-width: $tablet) {
-
-    }
+	font-size: 14pt;
+	@media only screen and (min-width: $tablet) {
+	}
 }
 
 .container {
-    max-width: 100%;
-    @media only screen and (min-width: $tablet) {
-        max-width: 80%;
-        padding-top: 10vh;
-    }
-    margin: 0 auto;
+	max-width: 100%;
+	@media only screen and (min-width: $tablet) {
+		max-width: 80%;
+		padding-top: 10vh;
+	}
+	margin: 0 auto;
 }
 
 .nav {
-    display: flex;
-    justify-content: space-between;
-    &-link {
-        display: inline;
-        font-size: 22pt;
-        color: black;
-        text-decoration: none;
-        &__pdb {
-            padding-bottom: 20px;
-        }
-    }
+	display: flex;
+	justify-content: space-between;
+	&-link {
+		display: inline;
+		font-size: 22pt;
+		color: black;
+		text-decoration: none;
+		&__pdb {
+			padding-bottom: 20px;
+		}
+	}
 }
 
 .product {
-    text-align: center;
-    display: flex;
-    padding-top: 10vh;
-    padding-bottom: 10vh;
-    cursor: pointer;
-    text-decoration: none;
-    color: black;
-    flex-direction: column;
-    @media only screen and (min-width: $tablet) {
-        flex-direction: row;
-        text-align: left;
-    }
-    &-image {
-        max-width: 80%;
-        margin: 0 auto;
-        @media only screen and (min-width: $tablet) {
-            max-width: 15%;
-        }
-    }
-    &-desc {
-        padding: 10px;
-    }
+	text-align: center;
+	display: flex;
+	padding-top: 10vh;
+	padding-bottom: 10vh;
+	cursor: pointer;
+	text-decoration: none;
+	color: black;
+	flex-direction: column;
+	@media only screen and (min-width: $tablet) {
+		flex-direction: row;
+		text-align: left;
+	}
+	&-image {
+		max-width: 80%;
+		margin: 0 auto;
+		@media only screen and (min-width: $tablet) {
+			max-width: 15%;
+			margin: 0;
+		}
+	}
+	&-desc {
+		padding: 10px;
+	}
 }
 
 .highlight {
-    background-color: black;
-    color: white;
-    text-transform: uppercase;
-    font-size: 22pt;
-    text-align: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    &-btn {
-        border: 0;
-        cursor: pointer;
-    }
+	background-color: black;
+	color: white;
+	text-transform: uppercase;
+	font-size: 22pt;
+	text-align: center;
+	padding: 10px;
+	margin-bottom: 10px;
+	&-btn {
+		border: 0;
+		cursor: pointer;
+	}
 }
 
 .cart {
-    &-text {
-        &__right {
-            text-align: right;
-        }
-        &__left {
-            text-align: left;
-        }
-    }
-    width: 100%;
-    &-item {
-        text-align: center;
-    }
-    &-remove {
-        cursor: pointer;
-        text-transform: uppercase;
-        text-decoration: underline;
-        color: black;
-    }
-    &-total {
-        text-transform: uppercase;
-        float: right;
-    }
+	&-text {
+		&__right {
+			text-align: right;
+		}
+		&__left {
+			text-align: left;
+		}
+	}
+	width: 100%;
+	&-item {
+		text-align: center;
+	}
+	&-remove {
+		cursor: pointer;
+		text-transform: uppercase;
+		text-decoration: underline;
+		color: black;
+	}
+	&-total {
+		text-transform: uppercase;
+		float: right;
+	}
 }

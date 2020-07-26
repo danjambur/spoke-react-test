@@ -15,7 +15,6 @@ export default function Cart({ baseURL }) {
     const getCart = async () => {
       const result = await fetch(`${baseURL}/api/cart`);
       result.json().then((cart) => {
-        console.log({ cart });
         setCart(cart);
       });
     };
@@ -116,7 +115,7 @@ export default function Cart({ baseURL }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const baseURL = process.env.BASE_URL;
   return {
     props: {

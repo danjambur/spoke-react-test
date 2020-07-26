@@ -57,26 +57,3 @@ it("should render loading state initially", () => {
   const tree = component.toJSON();
   expect(tree.children).toContain("Loading product...");
 });
-
-it("should render fine", () => {
-  const component = renderer.create(
-    <MockedProvider mocks={mock} addTypename={false}>
-      <Product id={productId} />
-    </MockedProvider>,
-  );
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
-it("should render Product", async () => {
-  const component = renderer.create(
-    <MockedProvider mock={[mock]} addTypename={false}>
-      <Product id={productId} />
-    </MockedProvider>,
-  );
-
-  await new Promise((resolve) => setTimeout(resolve, 0)); // wait for response
-
-  const h4 = component.root.findByType("h4");
-  expect(h4.children).toContain("Heroes");
-});
