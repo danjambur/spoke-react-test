@@ -105,7 +105,9 @@ export default function Cart({ baseURL }) {
               );
             })}
             <tr className="cart-text__right">
-              <td>TOTAL: £{parseInt(cartTotal()).toFixed(2)}</td>
+              <td colspan="4">
+                TOTAL: £{parseInt(cartTotal()).toFixed(2)}
+              </td>
             </tr>
           </tbody>
         </table>
