@@ -8,12 +8,6 @@ export default (req, res) => {
       parseInt(obj.qty, 10) *
       parseInt(obj.priceRange.maxVariantPrice.amount, 10));
   }
-
-  // there is (unfortunately) a bug that i cannot solve right now;
-  // where - on first POST, the cart data is updated - and reduced.
-  // but on the first GET, the cart - remains empty - i believe this is due to the cart being statically generated
-  // as, accessing the cart page before adding products - does not result in this bug.
-
   //Each time we run this function
   //We need to reduce the cart and quantify the objects
   //So what we don't have duplicates
