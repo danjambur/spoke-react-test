@@ -34,7 +34,6 @@ export default function Cart({ baseURL }) {
 
   function cartTotal() {
     cart.reduce((sum, obj) => {
-      console.log({ obj });
       obj.qty + obj.subTotal;
     }, 0);
     return cart.reduce((sum, obj) => sum + obj.subTotal, 0);
