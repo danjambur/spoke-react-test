@@ -2,9 +2,9 @@ import { useRouter } from "next/router";
 import { ApolloConsumer } from "@apollo/client";
 import Product, { GET_PRODUCT } from "../../components/Product";
 import Nav from "../../components/Nav";
-import { initializeApollo, useApollo } from "../../lib/apolloClient";
+import { initializeApollo } from "../../lib/apolloClient";
 
-export default function ProductPage({ initialApolloState, baseURL }) {
+export default function ProductPage({ baseURL }) {
   const router = useRouter();
   const { pid } = router.query;
   return (
@@ -31,14 +31,7 @@ export default function ProductPage({ initialApolloState, baseURL }) {
 }
 
 export async function getServerSideProps(props) {
-  const pid = props.query.pid;
   const apolloClient = initializeApollo();
-
-  await apolloClient.query({
-    query: GET_PRODUCT,
-    variables: { id: pid },
-  });
-
   // We need to initialise this serverside
   // Otherwise it won't resolve to process.env.API
   return {
