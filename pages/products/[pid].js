@@ -1,16 +1,32 @@
 import { useRouter } from "next/router";
+import { ApolloConsumer } from "@apollo/client";
 import Product, { GET_PRODUCT } from "../../components/Product";
 import Nav from "../../components/Nav";
-import { initializeApollo } from "../../lib/apolloClient";
+import { initializeApollo, useApollo } from "../../lib/apolloClient";
 
-export default function ProductPage(props) {
+export default function ProductPage({ initialApolloState, baseURL }) {
   const router = useRouter();
   const { pid } = router.query;
   return (
-    <div className="container">
-      <Nav isProductPage />
-      <Product isProductPage="true" id={pid} withOptions {...props} />
-    </div>
+    <ApolloConsumer>
+      {(client) => {
+        const data = client.readQuery({
+          query: GET_PRODUCT,
+          variables: { id: pid },
+        });
+        const product = data.node;
+        return (
+          <div className="container">
+            <Nav isProductPage />
+            <Product
+              product={product}
+              withOptions
+              baseURL={baseURL}
+            />
+          </div>
+        );
+      }}
+    </ApolloConsumer>
   );
 }
 
